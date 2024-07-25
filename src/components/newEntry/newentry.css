@@ -13,12 +13,46 @@
 
 .modal-content {
   background: white;
-  padding: 20px;
+  padding: 1.5rem;
   border-radius: 5px;
   width: 80%;
   max-width: 500px;
+  height: 20%;
+}
+
+.modal-content h2 {
+  font-weight: 900;
+}
+
+.modal-content input {
+  width: 100%;
+  margin: 1rem 0;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid var(--primary);
 }
 
 .modal-content button {
-  margin: 5px;
+  display: inline-block;
+  padding: 0.5rem 1.8rem;
+  margin-right: 0.5rem;
+  background-color: var(--primary);
+  font-size: 1rem;
+  border-radius: 4rem;
+  color: var(--text-primary);
+  border: 2px solid transparent;
+  letter-spacing: 0.05rem;
+  font-weight: 600;
+  transition: 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.modal-content button:hover {
+  transform: scale(1.05);
+  background: var(--secondary);
+  color: var(--primary);
+  border: 2px solid var(--text-primary);
+  filter: drop-shadow(0 0 15px var(--text-primary));
 }
