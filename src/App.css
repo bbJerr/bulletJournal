@@ -1,0 +1,47 @@
+/* ======= FONT IMPORT ======= */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&display=swap');
+
+/*============ CSS VARIABLES ============*/
+:root {
+/*========== Colors ==========*/
+  --text-primary: #48392e;
+  --text-secondary: #000000bd;
+  --background: #F5F3EF;
+  --primary: #D1C9B9;
+  --secondary: #636356;
+
+
+/*========== Font and Typography ==========*/
+  --main-font: 'Fraunces';
+  --transition-speed: 600ms;
+}
+
+
+/*============ BASE ============*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  border: none;
+  outline: none;
+  scroll-behavior: smooth;
+  font-family: var(--main-font);
+}
+
+body {
+  background-color: var(--primary);
+  min-height: 100vh;
+}
+
+body::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+body::-webkit-scrollbar-track {
+  background: var(--primary);
+}
+
+body::-webkit-scrollbar-thumb {
+  background: var(--secondary);
+}
