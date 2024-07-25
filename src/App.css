@@ -1,21 +1,19 @@
 /* ======= FONT IMPORT ======= */
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&display=swap");
 
 /*============ CSS VARIABLES ============*/
 :root {
-/*========== Colors ==========*/
+  /*========== Colors ==========*/
   --text-primary: #48392e;
   --text-secondary: #000000bd;
-  --background: #F5F3EF;
-  --primary: #D1C9B9;
+  --background: #f5f3ef;
+  --primary: #d1c9b9;
   --secondary: #636356;
 
-
-/*========== Font and Typography ==========*/
-  --main-font: 'Fraunces';
+  /*========== Font and Typography ==========*/
+  --main-font: "Fraunces";
   --transition-speed: 600ms;
 }
-
 
 /*============ BASE ============*/
 * {
@@ -30,7 +28,7 @@
 }
 
 body {
-  background-color: var(--primary);
+  background-color: var(--background);
   min-height: 100vh;
 }
 

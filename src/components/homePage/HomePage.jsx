@@ -4,6 +4,8 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import Modal from "../newEntry/NewEntry";
+import "./homepage.css";
+import Header from "../header/Header";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -63,7 +65,7 @@ const HomePage = () => {
 
   return (
     <div>
-      <h1>Daily Journal Calendar</h1>
+      <Header />
       <FullCalendar
         plugins={[dayGridPlugin, interactionPlugin]}
         initialView="dayGridMonth"
