@@ -8,10 +8,8 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<LandingPage />} />{" "}
-        {/* Set LandingPage as the default path */}
-        <Route path="/home" element={<HomePage />} />{" "}
-        {/* Update HomePage route */}
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/home" element={<HomePage />} />
         <Route path="/journal/:date" element={<JournalPage />} />
       </Routes>
     </Router>
