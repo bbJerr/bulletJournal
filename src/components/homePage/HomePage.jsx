@@ -64,7 +64,7 @@ const HomePage = () => {
   };
 
   return (
-    <div>
+    <div className="homepage">
       <Header />
       <FullCalendar
         plugins={[dayGridPlugin, interactionPlugin]}
