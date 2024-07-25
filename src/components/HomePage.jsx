@@ -3,11 +3,13 @@ import { useNavigate } from "react-router-dom";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
+import Modal from "../components/newEntry/NewEntry";
 
 const HomePage = () => {
   const navigate = useNavigate();
   const [events, setEvents] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const eventsFromLocalStorage = [];
@@ -34,21 +36,29 @@ const HomePage = () => {
 
   const handleDateClick = (info) => {
     setSelectedDate(info.dateStr);
-    const journalEntry = prompt("Create a new journal entry:");
+    setIsModalOpen(true);
+  };
+
+  const handleSave = (journalEntry) => {
     if (journalEntry) {
-      localStorage.setItem(info.dateStr, journalEntry);
-      // Add the new event to the calendar
+      localStorage.setItem(selectedDate, journalEntry);
+
       setEvents((prevEvents) => [
         ...prevEvents,
         {
-          id: info.dateStr,
-          title: "Journal Entry",
-          start: info.dateStr,
-          end: info.dateStr,
+          id: selectedDate,
+          title: journalEntry,
+          start: selectedDate,
+          end: selectedDate,
         },
       ]);
-      navigate(`/journal/${info.dateStr}`);
+      setIsModalOpen(false); // Close the modal
+      navigate(`/journal/${selectedDate}`);
     }
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -60,6 +70,11 @@ const HomePage = () => {
         events={events}
         eventClick={handleEventClick}
         dateClick={handleDateClick}
+      />
+      <Modal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        onSave={handleSave}
       />
     </div>
   );
