@@ -174,7 +174,7 @@ const JournalPage = () => {
         </>
       )}
       <br />
-      <button onClick={() => navigate("/")}>Back to Calendar</button>
+      <button onClick={() => navigate("/home")}>Back to Calendar</button>
     </div>
   );
 };
