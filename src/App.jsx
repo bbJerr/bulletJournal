@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import HomePage from "./components/HomePage";
-import JournalPage from "./components/JournalPage";
-import { LandingPage } from "./components/LandingPage";
+import HomePage from "./components/homePage/HomePage";
+import JournalPage from "./components/journalPage/JournalPage";
+import { LandingPage } from "./components/landingPage/LandingPage";
 import "./App.css";
 
 const App = () => {
