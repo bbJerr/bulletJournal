@@ -1,13 +1,14 @@
 /* General styles */
 .journal-page {
-    padding: 20px;
+    padding: 20px 50px;
     font-family: Arial, sans-serif;
+    min-height: 100vh;
 }
   
 .journal-content {
     display: flex;
     flex-direction: row;
-    gap: 20px;
+    gap: 80px;
 }
 
 .heading {
@@ -18,10 +19,11 @@
   /* Columns */
 .column {
     flex: 1;
+
 }
   
 .notes-section {
-    flex: 2;
+    flex: 1;
 }
   
 .mood-habits-section {
@@ -30,16 +32,25 @@
   
   /* Notes Section */
 .notes-section {
-    background-color: #f9f9f9;
-    border-radius: 8px;
+    background-color: var(--primary);
+    border-radius: 10px;
     padding: 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    height: 80vh;
 }
   
 .notes-section textarea {
     width: 100%;
     padding: 10px;
-    border-radius: 4px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.notes-section input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
     border: 1px solid #ccc;
     box-sizing: border-box;
 }
@@ -119,50 +130,56 @@
     margin: 0;
 }
   
-  /* Habit Tracker */
-.habit-tracker {
-    
-}
-  
-.habit-tracker input[type="checkbox"] {
-    margin-right: 10px;
-}
-  
+/* Habit Tracker */
+
 .habit-tracker ul {
-    list-style: none;
-    padding: 0;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Three equal-width columns */
+  gap: 10px; /* Adjust gap as needed */
 }
-  
+
 .habit-tracker li {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 10px;
-    margin-top: 5px;
+  background-color: var(--primary);
+  border-radius: 10px;
+  padding: 10px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 10rem;
+  font-size: 1.5rem;
+  color: var(--text-primary);
 }
-  
+
+.habit-tracker li input[type="checkbox"] {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
 .habit-tracker input[type="text"] {
-    width: calc(100% - 22px);
-    padding: 10px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
+  width: calc(100% - 22px);
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
 }
-  
+
 .habit-tracker button {
-    margin-top: 10px;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    background-color: #007bff;
-    color: #fff;
-    cursor: pointer;
-    transition: background-color 0.3s;
+  margin-top: 10px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
-  
+
 .habit-tracker button:hover {
-    background-color: #0056b3;
+  background-color: #0056b3;
 }
+
   
   /* General Buttons */
 button {

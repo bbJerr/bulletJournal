@@ -96,7 +96,7 @@ const JournalPage = () => {
         <div className="column notes-section">
           {isEditing ? (
             <>
-              <textarea
+              <input
                 value={journalEntry}
                 onChange={(e) => setJournalEntry(e.target.value)}
                 rows="10"
