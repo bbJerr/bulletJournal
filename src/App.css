@@ -30,7 +30,7 @@
 }
 
 body {
-  background-color: var(--primary);
+  background-color: var(--background);
   min-height: 100vh;
 }
 
