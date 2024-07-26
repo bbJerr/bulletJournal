@@ -63,6 +63,10 @@
   border: 1px solid #ccc;
   box-sizing: border-box;
 }
+
+.notes-section input:focus {
+  border: 1px solid #aa9b8f;
+}
   
 .notes-section ul {
   list-style: none;
