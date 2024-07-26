@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { FaSmile, FaMeh, FaFrown, FaGrin, FaSadTear, FaPlus, FaEdit, FaTrash } from 'react-icons/fa';
+import {
+  FaSmile,
+  FaMeh,
+  FaFrown,
+  FaGrin,
+  FaSadTear,
+  FaPlus,
+  FaTrash,
+} from "react-icons/fa";
 import "./journalPage.css";
 import Header from "../header/Header";
 
@@ -8,9 +16,9 @@ const JournalPage = () => {
   const { date } = useParams();
   const navigate = useNavigate();
   const [journalEntry, setJournalEntry] = useState("");
-  const [isEditing, setIsEditing] = useState(false);
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState("");
+  const [showNewNoteInput, setShowNewNoteInput] = useState(false);
   const [mood, setMood] = useState(3);
   const [habits, setHabits] = useState([]);
   const [newHabit, setNewHabit] = useState("");
@@ -40,33 +48,48 @@ const JournalPage = () => {
     localStorage.setItem(`${date}_mood`, mood);
     localStorage.setItem(`${date}_habits`, JSON.stringify(habits));
     alert("Journal entry saved!");
-    setIsEditing(false);
-    setIsEditingHabits(false);
-  };
-
-  const handleEdit = () => {
-    setIsEditing(true);
-  };
-
-  const handleCancel = () => {
-    setIsEditing(false);
     setIsEditingHabits(false);
   };
 
   const handleAddNote = () => {
     if (newNote.trim()) {
-      setNotes([...notes, newNote.trim()]);
+      const updatedNotes = [...notes, newNote.trim()];
+      setNotes(updatedNotes);
       setNewNote("");
+      setShowNewNoteInput(false);
+      localStorage.setItem(`${date}_notes`, JSON.stringify(updatedNotes));
+    }
+  };
+
+  const handleNoteChange = (index, value) => {
+    const updatedNotes = [...notes];
+    updatedNotes[index] = value;
+    setNotes(updatedNotes);
+  };
+
+  const handleNoteBlur = (index) => {
+    localStorage.setItem(`${date}_notes`, JSON.stringify(notes));
+  };
+
+  const handleNoteKeyPress = (event, index) => {
+    if (event.key === "Enter") {
+      handleNoteBlur(index);
+      event.target.blur();
     }
   };
 
   const handleRemoveNote = (index) => {
-    setNotes(notes.filter((_, i) => i !== index));
+    const updatedNotes = notes.filter((_, i) => i !== index);
+    setNotes(updatedNotes);
+    localStorage.setItem(`${date}_notes`, JSON.stringify(updatedNotes));
   };
 
   const handleAddHabit = () => {
     if (newHabit.trim()) {
-      const updatedHabits = [...habits, { text: newHabit.trim(), completed: false }];
+      const updatedHabits = [
+        ...habits,
+        { text: newHabit.trim(), completed: false },
+      ];
       setHabits(updatedHabits);
       localStorage.setItem(`${date}_habits`, JSON.stringify(updatedHabits));
       setNewHabit("");
@@ -117,45 +140,53 @@ const JournalPage = () => {
         <h3>Journal Entry for {date}</h3>
         <div className="journal-content">
           <div className="column notes-section">
-            {isEditing ? (
-              <>
-                <input
-                  value={journalEntry}
-                  onChange={(e) => setJournalEntry(e.target.value)}
-                  rows="10"
-                  cols="30"
-                />      
-                <label className="heading">My Notes</label>         
-                <ul>
-                  {notes.map((note, index) => (
-                    <li key={index}>
-                      {note}
-                      <button onClick={() => handleRemoveNote(index)}>Remove</button>
-                    </li>
-                  ))}
-                </ul>
-                <textarea
-                  value={newNote}
-                  onChange={(e) => setNewNote(e.target.value)}
-                  rows="3"
-                  cols="30"
-                  placeholder="Add a new note"
+            <input
+              value={journalEntry}
+              onChange={(e) => setJournalEntry(e.target.value)}
+              onBlur={() => localStorage.setItem(date, journalEntry)}
+              rows="10"
+              cols="30"
+            />
+            <label className="heading">My Notes</label>
+            <ul>
+              {notes.map((note, index) => (
+                <li key={index}>
+                  <input
+                    value={note}
+                    onChange={(e) => handleNoteChange(index, e.target.value)}
+                    onBlur={() => handleNoteBlur(index)}
+                    onKeyPress={(e) => handleNoteKeyPress(e, index)}
+                    className="note-input"
+                  />
+                  <FaTrash
+                    size={20}
+                    style={{ marginLeft: "10px", cursor: "pointer" }}
+                    onClick={() => handleRemoveNote(index)}
+                  />
+                </li>
+              ))}
+              {showNewNoteInput && (
+                <li className="new-note-input">
+                  <input
+                    type="text"
+                    value={newNote}
+                    onChange={(e) => setNewNote(e.target.value)}
+                    placeholder="Add a new note"
+                    onKeyPress={(e) => {
+                      if (e.key === "Enter") handleAddNote();
+                    }}
+                    onBlur={handleAddNote}
+                  />
+                </li>
+              )}
+              <li>
+                <FaPlus
+                  size={24}
+                  style={{ cursor: "pointer" }}
+                  onClick={() => setShowNewNoteInput(true)}
                 />
-                <button onClick={handleAddNote}>Add Note</button>
-              </>
-            ) : (
-              <>
-                <p>{journalEntry}</p>
-                <div>
-                  <label className="heading">My Notes</label>
-                  <ul>
-                    {notes.map((note, index) => (
-                      <li key={index}>{note}</li>
-                    ))}
-                  </ul>
-                </div>
-              </>
-            )}
+              </li>
+            </ul>
           </div>
           <div className="column mood-habits-section">
             <div className="mood-tracker">
@@ -164,7 +195,7 @@ const JournalPage = () => {
                 {[1, 2, 3, 4, 5].map((num) => (
                   <span
                     key={num}
-                    className={`mood-icon ${mood === num ? 'selected' : ''}`}
+                    className={`mood-icon ${mood === num ? "selected" : ""}`}
                     onClick={() => handleMoodClick(num)}
                   >
                     {renderMoodIcon(num)}
@@ -173,14 +204,7 @@ const JournalPage = () => {
               </div>
             </div>
             <div className="habit-tracker">
-              <label className="heading">
-                Habit Tracker
-                <FaEdit
-                  size={20}
-                  style={{ marginLeft: '10px', cursor: 'pointer' }}
-                  onClick={() => setIsEditingHabits(!isEditingHabits)}
-                />
-              </label>
+              <label className="heading">Habit Tracker</label>
               <ul>
                 {habits.map((habit, index) => (
                   <li key={index}>
@@ -188,7 +212,7 @@ const JournalPage = () => {
                       <>
                         <FaTrash
                           size={20}
-                          style={{ marginRight: '10px', cursor: 'pointer' }}
+                          style={{ marginRight: "10px", cursor: "pointer" }}
                           onClick={() => handleRemoveHabit(index)}
                         />
                         {habit.text}
@@ -227,15 +251,10 @@ const JournalPage = () => {
             </div>
           </div>
         </div>
-        {isEditing ? (
-          <>
-            <button onClick={handleSave} className="btn-2">Save Entry</button>
-            <button onClick={handleCancel} className="btn-2">Cancel</button>
-          </>
-        ) : (
-          <button onClick={handleEdit} className="btn-2">Edit</button>
-        )}
-        <button onClick={() => navigate("/home")} className="btn-2">Back to Calendar</button>
+
+        <button onClick={() => navigate("/home")} className="btn-2">
+          Back to Calendar
+        </button>
       </div>
     </div>
   );
