@@ -176,30 +176,30 @@ const JournalPage = () => {
             <ul>
               {notes.map((note, index) => (
                 <li key={index} className="note-item">
-                <div className="note-input-container">
-                  <input
-                    value={note}
-                    onChange={(e) => handleNoteChange(index, e.target.value)}
-                    onBlur={() =>
-                      localStorage.setItem(
-                        `${date}_notes`,
-                        JSON.stringify(notes)
-                      )
-                    }
-                    onKeyPress={(e) => handleNoteKeyPress(e, index)}
-                    className="note-input"
-                  />
-                  <FaTrash
-                    size={20}
-                    onClick={() => handleRemoveNote(index)}
-                    className="trash-icon"
-                  />
-                </div>
+                  <div className="note-input-container">
+                    <textarea
+                      value={note}
+                      onChange={(e) => handleNoteChange(index, e.target.value)}
+                      onBlur={() =>
+                        localStorage.setItem(
+                          `${date}_notes`,
+                          JSON.stringify(notes)
+                        )
+                      }
+                      onKeyPress={(e) => handleNoteKeyPress(e, index)}
+                      className="note-input"
+                    />
+                    <FaTrash
+                      size={20}
+                      onClick={() => handleRemoveNote(index)}
+                      className="trash-icon"
+                    />
+                  </div>
                 </li>
               ))}
               {showNewNoteInput && (
                 <li className="new-note-input">
-                  <input
+                  <textarea
                     type="text"
                     value={newNote}
                     onChange={(e) => setNewNote(e.target.value)}

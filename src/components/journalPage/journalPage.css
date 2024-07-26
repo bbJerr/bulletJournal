@@ -52,6 +52,7 @@
   padding: 10px;
   border: 1px solid #ccc;
   box-sizing: border-box;
+  resize: none;
 }
 
 .notes-section input {
@@ -204,14 +205,14 @@
 /* Textarea in Habit Tracker */
 .habit-input,
 .habit-tracker textarea[type="text"] {
-  width: 100%; 
-  height: 100%; 
+  width: 100%;
+  height: 100%;
   font-size: 1rem;
   color: var(--text-primary);
   background-color: transparent;
-  resize: none; 
-  box-sizing: border-box; 
-  padding: 10px; 
+  resize: none;
+  box-sizing: border-box;
+  padding: 10px;
 }
 
 /* Trash Icon */
