@@ -137,13 +137,14 @@
 
 /* Mood Tracker */
 .mood-tracker {
-  margin-bottom: 6rem;
+  margin-bottom: 5rem;
 }
 
 .mood-icons {
   display: flex;
   justify-content: space-around;
   color: var(--primary);
+  font-size: 5rem;
 }
 
 .mood-icon {
@@ -154,10 +155,6 @@
   color: var(--text-primary);
 }
 
-.mood-tracker p {
-  font-size: 1.2rem;
-  margin: 0;
-}
 
 /* Habit Tracker */
 .habit-tracker ul {
@@ -278,4 +275,65 @@
   color: var(--text-primary);
   border: 2px solid var(--text-primary);
   filter: drop-shadow(0 0 15px var(--text-primary));
+}
+
+
+@media (max-width: 768px) {
+  
+  .journal-page {
+    padding: 20px;
+  }
+
+  .journal-content {
+    flex-direction: column;
+  }
+
+  .journal-title input {
+    font-size: 1.5rem; /* Adjust font size on mobile */
+    text-align: center;
+  }
+
+  .journal-title h3 {
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  .heading {
+    font-size: 1.5rem; /* Adjust font size on mobile */
+    text-align: center;
+  }
+
+  .notes-section {
+    padding: 20px 10px;
+  }
+
+  .notes-section,
+  .mood-habits-section {
+    min-height: auto; /* Adjust height as needed */
+  }
+
+  .notes-section textarea,
+  .habit-input,
+  .habit-tracker textarea[type="text"] {
+    font-size: 1rem; /* Adjust font size on mobile */
+  }
+
+  .habit-tracker ul {
+    grid-template-columns: 1fr; /* Single column for habits on mobile */
+  }
+  
+  .journal-title input {
+    font-size: 1.5rem; /* Adjust font size for mobile */
+  }
+
+  .mood-icons {
+    font-size: 3rem;
+  }
+
+  .btn-2 {
+    font-size: 1rem; /* Adjust button font size for mobile */
+    padding: 0.8rem 1.5rem; /* Adjust padding for mobile */
+    margin: 1rem auto; /* Center the button horizontally */
+    display: block;
+  }
 }

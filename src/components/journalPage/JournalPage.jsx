@@ -137,15 +137,15 @@ const JournalPage = () => {
   const renderMoodIcon = (num) => {
     switch (num) {
       case 1:
-        return <FaGrin size={80} />;
+        return <FaGrin />;
       case 2:
-        return <FaSmile size={80} />;
+        return <FaSmile />;
       case 3:
-        return <FaMeh size={80} />;
+        return <FaMeh />;
       case 4:
-        return <FaFrown size={80} />;
+        return <FaFrown />;
       case 5:
-        return <FaSadTear size={80} />;
+        return <FaSadTear />;
       default:
         return null;
     }
