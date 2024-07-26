@@ -20,9 +20,10 @@ const NewEntry = ({ isOpen, onClose, onSave }) => {
           onChange={(e) => setJournalEntry(e.target.value)}
           placeholder="Write your journal entry here..."
         />
-        <br />
-        <button onClick={handleSave}>Add</button>
-        <button onClick={onClose}>Cancel</button>
+        <div className="buttons">
+          <button onClick={handleSave}>Add</button>
+          <button onClick={onClose}>Cancel</button>
+        </div>
       </div>
     </div>
   );
