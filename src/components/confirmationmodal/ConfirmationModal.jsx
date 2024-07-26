@@ -1,5 +1,6 @@
 import React from "react";
 import "./confirmationModal.css";
+import { FaSadTear } from "react-icons/fa";
 
 const ConfirmationModal = ({ isOpen, onClose, onConfirm }) => {
   if (!isOpen) return null;
@@ -8,7 +9,7 @@ const ConfirmationModal = ({ isOpen, onClose, onConfirm }) => {
     <div className="confirmation-modal">
       <div className="confirmation-modal-content">
         <h3>Confirm Delete</h3>
-        <p>Are you sure you want to delete this journal entry?</p>
+        <p>Are you sure you want to delete this journal entry? <FaSadTear /></p>
         <div className="confirmation-modal-buttons">
           <button onClick={onConfirm} className="confirm-button">
             Delete
