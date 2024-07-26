@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { FaSmile, FaMeh, FaFrown, FaGrin, FaSadTear } from 'react-icons/fa';
+import { FaSmile, FaMeh, FaFrown, FaGrin, FaSadTear } from "react-icons/fa";
 import "./journalPage.css";
 
 const JournalPage = () => {
@@ -10,7 +10,7 @@ const JournalPage = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState("");
-  const [mood, setMood] = useState(4); // Default mood set to smiley
+  const [mood, setMood] = useState(4);
   const [habits, setHabits] = useState([]);
   const [newHabit, setNewHabit] = useState("");
 
@@ -18,7 +18,8 @@ const JournalPage = () => {
     const savedEntry = localStorage.getItem(date);
     const savedNotes = JSON.parse(localStorage.getItem(`${date}_notes`)) || [];
     const savedMood = localStorage.getItem(`${date}_mood`);
-    const savedHabits = JSON.parse(localStorage.getItem(`${date}_habits`)) || [];
+    const savedHabits =
+      JSON.parse(localStorage.getItem(`${date}_habits`)) || [];
 
     if (savedEntry) {
       setJournalEntry(savedEntry);
@@ -115,7 +116,9 @@ const JournalPage = () => {
                 {notes.map((note, index) => (
                   <li key={index}>
                     {note}
-                    <button onClick={() => handleRemoveNote(index)}>Remove</button>
+                    <button onClick={() => handleRemoveNote(index)}>
+                      Remove
+                    </button>
                   </li>
                 ))}
               </ul>
@@ -141,7 +144,7 @@ const JournalPage = () => {
               {[1, 2, 3, 4, 5].map((num) => (
                 <span
                   key={num}
-                  className={`mood-icon ${mood === num ? 'selected' : ''}`}
+                  className={`mood-icon ${mood === num ? "selected" : ""}`}
                   onClick={() => setMood(num)}
                 >
                   {renderMoodIcon(num)}
@@ -178,7 +181,11 @@ const JournalPage = () => {
                 <ul>
                   {habits.map((habit, index) => (
                     <li key={index}>
-                      <input type="checkbox" checked={habit.completed} readOnly />
+                      <input
+                        type="checkbox"
+                        checked={habit.completed}
+                        readOnly
+                      />
                       {habit.text}
                     </li>
                   ))}
