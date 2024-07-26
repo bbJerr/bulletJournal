@@ -1,12 +1,10 @@
-/* General styles */
-
 .whole-page {
   min-height: 100vh;
 }
 
 .journal-page {
   padding: 20px 50px;
-  font-family: Arial, sans-serif;   
+  font-family: Arial, sans-serif;
 }
 
 .journal-page h3 {
@@ -26,30 +24,29 @@
   display: block;
   margin-bottom: 2rem;
 }
-  
-  /* Columns */
+
+/* Columns */
 .column {
   flex: 1;
-
 }
-  
+
 .notes-section {
   flex: 1;
 }
-  
+
 .mood-habits-section {
   flex: 1;
 }
-  
-  /* Notes Section */
+
+/* Notes Section */
 .notes-section {
   border-radius: 10px;
   background-color: var(--primary);
   padding: 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  min-height: 70vh;  
+  min-height: 70vh;
 }
-  
+
 .notes-section textarea {
   width: 100%;
   padding: 10px;
@@ -75,11 +72,19 @@
 
 .notes-section li {
   padding: 0 10px 10px 10px;
-  display: flex; 
+  display: flex;
   align-items: center;
   color: var(--text-primary);
 }
 
+.notes-section input.note-input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  font-size: 1rem;
+}
 .note-item {
   position: relative;
   margin-bottom: 10px;
@@ -103,9 +108,9 @@
   position: absolute;
   right: 10px;
   cursor: pointer;
-  color: #888; 
-  opacity: 0; 
-  transition: opacity 0.3s ease; 
+  color: #888;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .note-input-container:hover .trash-icon {
@@ -113,55 +118,59 @@
 }
 
 .trash-icon:hover {
-  color: #ee6a6a; 
+  color: #ee6a6a;
 }
 
-
-  /* Mood Tracker */
+/* Mood Tracker */
 .mood-tracker {
   margin-bottom: 6rem;
-  }
-  
+}
+
 .mood-icons {
   display: flex;
   justify-content: space-around;
   color: var(--primary);
 }
-  
+
 .mood-icon {
   cursor: pointer;
 }
-  
+
 .mood-icon.selected {
   color: var(--text-primary);
 }
-  
+
 .mood-tracker p {
   font-size: 1.2rem;
   margin: 0;
 }
-  
+
 /* Habit Tracker */
 .habit-tracker ul {
   padding: 0 20px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr); 
+  grid-template-columns: repeat(3, 1fr);
   gap: 10px;
 }
 
 .habit-tracker li {
   background-color: var(--primary);
   border-radius: 10px;
+  max-width: 15rem;
   padding: 20px;
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center; 
-  justify-content: center; 
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  height: 13rem;
-  font-size: 2rem;
+  height: 10rem;
+  font-size: 1rem;
   color: var(--text-primary);
+  overflow: hidden;
+  word-break: break-word;
+  hyphens: auto;
+  box-sizing: border-box;
 }
 
 .habit-tracker li input[type="checkbox"] {
@@ -169,17 +178,17 @@
   top: 10px;
   right: 10px;
   width: 24px;
-  height: 24px; 
+  height: 24px;
   cursor: pointer;
-  appearance: none; 
+  appearance: none;
   background-color: #fff;
-  border: 2px solid var(--text-primary); 
+  border: 2px solid var(--text-primary);
   border-radius: 4px;
   outline: none;
 }
 
 .habit-tracker li input[type="checkbox"]:checked::before {
-  content: '✔'; 
+  content: "✔";
   display: flex;
   align-items: center;
   justify-content: center;
@@ -188,20 +197,25 @@
 }
 
 .habit-tracker li input[type="checkbox"]::before {
-  content: '';
+  content: "";
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.habit-tracker input[type="text"] {
-  justify-content: center; 
-  text-align: center;
-  font-size: 2rem;
+/* Textarea in Habit Tracker */
+.habit-input,
+.habit-tracker textarea[type="text"] {
+  width: 100%; /* Fills the width of the parent */
+  height: 100%; /* Fills the height of the parent */
+  font-size: 1rem;
   color: var(--text-primary);
   background-color: transparent;
+  resize: none; /* Prevents resizing */
+  box-sizing: border-box; /* Includes padding and border in the width/height calculation */
+  padding: 10px; /* Adjust as needed */
 }
-  
+
 .btn-2 {
   display: inline-block;
   padding: 1rem 1.8rem;
