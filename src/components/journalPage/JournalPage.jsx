@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { FaSmile, FaMeh, FaFrown, FaGrin, FaSadTear, FaPlus, FaTrash } from "react-icons/fa";
+import {
+  FaSmile,
+  FaMeh,
+  FaFrown,
+  FaGrin,
+  FaSadTear,
+  FaPlus,
+  FaTrash,
+} from "react-icons/fa";
 import "./journalPage.css";
 import Header from "../header/Header";
 
@@ -15,7 +23,7 @@ const JournalPage = () => {
   const [habits, setHabits] = useState([]);
   const [newHabit, setNewHabit] = useState("");
   const [showNewHabitInput, setShowNewHabitInput] = useState(false);
-  const [isEditingHabits, setIsEditingHabits] = useState(false);
+  const [editingHabitIndex, setEditingHabitIndex] = useState(null);
 
   useEffect(() => {
     const savedEntry = localStorage.getItem(date);
@@ -40,17 +48,16 @@ const JournalPage = () => {
     localStorage.setItem(`${date}_mood`, mood);
     localStorage.setItem(`${date}_habits`, JSON.stringify(habits));
     alert("Journal entry saved!");
-    setIsEditingHabits(false);
   };
 
   const handleAddNote = () => {
     if (newNote.trim()) {
       const updatedNotes = [...notes, newNote.trim()];
       setNotes(updatedNotes);
-      setNewNote("");
-      setShowNewNoteInput(false);
       localStorage.setItem(`${date}_notes`, JSON.stringify(updatedNotes));
     }
+    setNewNote("");
+    setShowNewNoteInput(false);
   };
 
   const handleNoteChange = (index, value) => {
@@ -59,14 +66,17 @@ const JournalPage = () => {
     setNotes(updatedNotes);
   };
 
-  const handleNoteBlur = (index) => {
-    localStorage.setItem(`${date}_notes`, JSON.stringify(notes));
+  const handleNoteBlur = () => {
+    if (!newNote.trim()) {
+      setShowNewNoteInput(false);
+      return;
+    }
+    handleAddNote();
   };
 
-  const handleNoteKeyPress = (event, index) => {
+  const handleNoteKeyPress = (event) => {
     if (event.key === "Enter") {
-      handleNoteBlur(index);
-      event.target.blur();
+      handleNoteBlur();
     }
   };
 
@@ -125,6 +135,29 @@ const JournalPage = () => {
     }
   };
 
+  const handleHabitEdit = (index) => {
+    setEditingHabitIndex(index);
+  };
+
+  const handleHabitChange = (index, value) => {
+    const updatedHabits = [...habits];
+    updatedHabits[index].text = value;
+    setHabits(updatedHabits);
+  };
+
+  const handleHabitBlur = () => {
+    if (editingHabitIndex !== null) {
+      localStorage.setItem(`${date}_habits`, JSON.stringify(habits));
+      setEditingHabitIndex(null);
+    }
+  };
+
+  const handleHabitKeyPress = (event, index) => {
+    if (event.key === "Enter") {
+      handleHabitBlur();
+    }
+  };
+
   return (
     <div className="whole-page">
       <Header />
@@ -147,7 +180,12 @@ const JournalPage = () => {
                   <input
                     value={note}
                     onChange={(e) => handleNoteChange(index, e.target.value)}
-                    onBlur={() => handleNoteBlur(index)}
+                    onBlur={() =>
+                      localStorage.setItem(
+                        `${date}_notes`,
+                        JSON.stringify(notes)
+                      )
+                    }
                     onKeyPress={(e) => handleNoteKeyPress(e, index)}
                     className="note-input"
                   />
@@ -166,10 +204,8 @@ const JournalPage = () => {
                     value={newNote}
                     onChange={(e) => setNewNote(e.target.value)}
                     placeholder="Add a new note"
-                    onKeyPress={(e) => {
-                      if (e.key === "Enter") handleAddNote();
-                    }}
-                    onBlur={handleAddNote}
+                    onBlur={handleNoteBlur}
+                    onKeyPress={handleNoteKeyPress}
                   />
                 </li>
               )}
@@ -202,15 +238,17 @@ const JournalPage = () => {
               <ul>
                 {habits.map((habit, index) => (
                   <li key={index}>
-                    {isEditingHabits ? (
-                      <>
-                        <FaTrash
-                          size={20}
-                          style={{ marginRight: "10px", cursor: "pointer" }}
-                          onClick={() => handleRemoveHabit(index)}
-                        />
-                        {habit.text}
-                      </>
+                    {editingHabitIndex === index ? (
+                      <input
+                        type="text"
+                        value={habits[index].text}
+                        onChange={(e) =>
+                          handleHabitChange(index, e.target.value)
+                        }
+                        onBlur={handleHabitBlur}
+                        onKeyPress={(e) => handleHabitKeyPress(e, index)}
+                        className="habit-input"
+                      />
                     ) : (
                       <>
                         <input
@@ -218,7 +256,17 @@ const JournalPage = () => {
                           checked={habit.completed}
                           onChange={() => handleToggleHabit(index)}
                         />
-                        {habit.text}
+                        <span
+                          onClick={() => handleHabitEdit(index)}
+                          style={{ cursor: "pointer" }}
+                        >
+                          {habit.text}
+                        </span>
+                        <FaTrash
+                          size={20}
+                          style={{ marginLeft: "10px", cursor: "pointer" }}
+                          onClick={() => handleRemoveHabit(index)}
+                        />
                       </>
                     )}
                   </li>
@@ -230,7 +278,7 @@ const JournalPage = () => {
                       value={newHabit}
                       onChange={(e) => setNewHabit(e.target.value)}
                       placeholder="Add new habit"
-                      onBlur={handleAddHabit} // Save habit on blur
+                      onBlur={handleAddHabit}
                     />
                   </li>
                 )}
