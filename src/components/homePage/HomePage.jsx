@@ -12,6 +12,7 @@ const HomePage = () => {
   const [events, setEvents] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeleteMode, setIsDeleteMode] = useState(false);
 
   useEffect(() => {
     const eventsFromLocalStorage = [];
@@ -31,14 +32,24 @@ const HomePage = () => {
   }, []);
 
   const handleEventClick = (info) => {
-    console.log("Event Clicked:", info);
     const eventDate = info.event.startStr.split("T")[0];
-    navigate(`/journal/${eventDate}`);
+    if (isDeleteMode) {
+      handleDeleteEntry(eventDate);
+    } else {
+      navigate(`/journal/${eventDate}`);
+    }
   };
 
   const handleDateClick = (info) => {
-    setSelectedDate(info.dateStr);
-    setIsModalOpen(true);
+    if (isDeleteMode) return;
+
+    const existingEntry = localStorage.getItem(info.dateStr);
+    if (existingEntry) {
+      alert("A journal entry already exists for this date.");
+    } else {
+      setSelectedDate(info.dateStr);
+      setIsModalOpen(true);
+    }
   };
 
   const handleSave = (journalEntry) => {
@@ -63,9 +74,27 @@ const HomePage = () => {
     setIsModalOpen(false);
   };
 
+  const toggleDeleteMode = () => {
+    setIsDeleteMode(!isDeleteMode);
+  };
+
+  const handleDeleteEntry = (date) => {
+    localStorage.removeItem(date);
+    localStorage.removeItem(`${date}_notes`);
+    localStorage.removeItem(`${date}_mood`);
+    localStorage.removeItem(`${date}_habits`);
+
+    setEvents((prevEvents) => prevEvents.filter((event) => event.id !== date));
+    setIsDeleteMode(false);
+    alert(`Journal entry for ${date} deleted.`);
+  };
+
   return (
     <div className="homepage">
       <Header />
+      <button onClick={toggleDeleteMode} className="delete-button btn">
+        {isDeleteMode ? "Cancel Delete" : "Delete Entry"}
+      </button>
       <FullCalendar
         plugins={[dayGridPlugin, interactionPlugin]}
         initialView="dayGridMonth"
