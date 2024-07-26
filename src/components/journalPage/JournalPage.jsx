@@ -264,7 +264,7 @@ const JournalPage = () => {
                         </span>
                         <FaTrash
                           size={20}
-                          style={{ marginLeft: "10px", cursor: "pointer" }}
+                          className="trash-icon"
                           onClick={() => handleRemoveHabit(index)}
                         />
                       </>
