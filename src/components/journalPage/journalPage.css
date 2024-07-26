@@ -43,8 +43,8 @@
   
   /* Notes Section */
 .notes-section {
-  background-color: var(--primary);
   border-radius: 10px;
+  background-color: var(--primary);
   padding: 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   min-height: 70vh;  
@@ -53,7 +53,6 @@
 .notes-section textarea {
   width: 100%;
   padding: 10px;
-  border-radius: 10px;
   border: 1px solid #ccc;
   box-sizing: border-box;
 }
@@ -61,7 +60,6 @@
 .notes-section input {
   width: 100%;
   padding: 10px;
-  border-radius: 10px;
   border: 1px solid #ccc;
   box-sizing: border-box;
 }
@@ -78,18 +76,40 @@
   color: var(--text-primary);
 }
 
-.notes-section input.note-input {
-  flex: 1; 
-  padding: 10px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-  font-size: 1rem;
+.note-item {
+  position: relative;
+  margin-bottom: 10px;
 }
 
-.notes-section .trash-icon {
-  margin-left: 10px;
+/* Container for input and trash icon */
+.note-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.note-input {
+  padding-right: 30px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.trash-icon {
+  position: absolute;
+  right: 10px;
   cursor: pointer;
+  color: #888; 
+  opacity: 0; 
+  transition: opacity 0.3s ease; 
+}
+
+.note-input-container:hover .trash-icon {
+  opacity: 1;
+}
+
+.trash-icon:hover {
+  color: #ee6a6a; 
 }
 
 

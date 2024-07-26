@@ -142,7 +142,8 @@ const JournalPage = () => {
             <label className="heading">My Notes</label>
             <ul>
               {notes.map((note, index) => (
-                <li key={index}>
+                <li key={index} className="note-item">
+                <div className="note-input-container">
                   <input
                     value={note}
                     onChange={(e) => handleNoteChange(index, e.target.value)}
@@ -152,10 +153,10 @@ const JournalPage = () => {
                   />
                   <FaTrash
                     size={20}
-                    style={{ marginLeft: "10px", cursor: "pointer" }}
                     onClick={() => handleRemoveNote(index)}
                     className="trash-icon"
                   />
+                </div>
                 </li>
               ))}
               {showNewNoteInput && (

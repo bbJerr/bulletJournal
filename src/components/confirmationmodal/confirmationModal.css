@@ -19,6 +19,11 @@
   position: relative;
 }
 
+.confirmation-modal-content h3{
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
 .confirmation-modal-buttons {
   margin-top: 1rem;
 }
@@ -33,11 +38,19 @@
 }
 
 .confirm-button {
-  background-color: #ff4d4d;
+  background-color: #ee6a6a;
   color: white;
+}
+
+.confirm-button:hover {
+  background-color: #fd5353;
 }
 
 .cancel-button {
   background-color: #ddd;
   color: black;
+}
+
+.cancel-button:hover {
+  background-color: #c2c2c2;
 }
