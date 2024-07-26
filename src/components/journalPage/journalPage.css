@@ -61,6 +61,10 @@
   box-sizing: border-box;
 }
 
+.notes-section input:focus {
+  border: 1px solid #aa9b8f;
+}
+  
 .notes-section ul {
   list-style: none;
   padding: 0;
@@ -76,8 +80,6 @@
 .notes-section input.note-input {
   flex: 1;
   padding: 10px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
   box-sizing: border-box;
   font-size: 1rem;
 }
@@ -141,6 +143,7 @@
   margin: 0;
 }
 
+
 /* Habit Tracker */
 .habit-tracker ul {
   padding: 0 20px;
@@ -152,7 +155,7 @@
 .habit-tracker li {
   background-color: var(--primary);
   border-radius: 10px;
-  max-width: 15rem;
+  max-width: 19rem;
   padding: 20px;
   position: relative;
   display: flex;
@@ -160,8 +163,8 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  height: 10rem;
-  font-size: 1rem;
+  height: 8.5rem;
+  font-size: 1.2rem;
   color: var(--text-primary);
   overflow: hidden;
   word-break: break-word;
@@ -202,14 +205,14 @@
 /* Textarea in Habit Tracker */
 .habit-input,
 .habit-tracker textarea[type="text"] {
-  width: 100%;
-  height: 100%;
+  width: 100%; /* Fills the width of the parent */
+  height: 100%; /* Fills the height of the parent */
   font-size: 1rem;
   color: var(--text-primary);
   background-color: transparent;
-  resize: none;
-  box-sizing: border-box;
-  padding: 10px;
+  resize: none; /* Prevents resizing */
+  box-sizing: border-box; /* Includes padding and border in the width/height calculation */
+  padding: 10px; /* Adjust as needed */
 }
 
 .btn-2 {
