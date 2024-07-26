@@ -18,6 +18,10 @@
   background-color: var(--background);
 }
 
+.fc-day-today {
+  background-color: #beb39d !important;
+}
+
 .fc-today-button {
   display: inline-block !important;
   padding: 1rem 1.8rem;
