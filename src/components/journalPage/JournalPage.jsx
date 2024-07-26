@@ -238,7 +238,7 @@ const JournalPage = () => {
                 {habits.map((habit, index) => (
                   <li key={index}>
                     {editingHabitIndex === index ? (
-                      <input
+                      <textarea
                         type="text"
                         value={habits[index].text}
                         onChange={(e) =>
@@ -272,7 +272,7 @@ const JournalPage = () => {
                 ))}
                 {showNewHabitInput && (
                   <li className="new-habit-input">
-                    <input
+                    <textarea
                       type="text"
                       value={newHabit}
                       onChange={(e) => setNewHabit(e.target.value)}
