@@ -67,6 +67,14 @@
 
 @media screen and (max-width: 576px) {
   .modal-content {
-    height: 30%;
+    padding: 1rem 1.5rem;
+    height: 12rem;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+  }
+
+  .modal-content h2 {
+    font-size: 1.3rem;
   }
 }
