@@ -7,16 +7,35 @@
   font-family: Arial, sans-serif;
 }
 
-.journal-page h3 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-}
-
 .journal-content {
   display: flex;
   flex-direction: row;
   gap: 80px;
 }
+
+.journal-title {
+  margin-bottom: 20px; /* Adjust spacing as needed */
+  color: var(--text-primary);
+}
+
+.journal-title input {
+  width: 100%; /* Adjust width as needed */
+  margin: 0 auto; /* Center horizontally */
+  display: block;
+  background-color: transparent;
+  font-size: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.journal-title input:focus {
+  cursor: default;
+}
+
+.journal-title h3 {
+  margin: 0.5rem 0 3rem 0; 
+  font-weight: 500;
+} 
 
 .heading {
   font-size: 2rem;

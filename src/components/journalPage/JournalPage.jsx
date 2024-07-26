@@ -162,16 +162,18 @@ const JournalPage = () => {
     <div className="whole-page">
       <Header />
       <div className="journal-page">
-        <h3>Journal Entry for {date}</h3>
+        <div className="journal-title">
+          <input
+            value={journalEntry}
+            onChange={(e) => setJournalEntry(e.target.value)}
+            onBlur={() => localStorage.setItem(date, journalEntry)}
+            rows="10"
+            cols="30"
+          />
+          <h3>Journal Entry for {date}</h3>
+        </div>      
         <div className="journal-content">
           <div className="column notes-section">
-            <input
-              value={journalEntry}
-              onChange={(e) => setJournalEntry(e.target.value)}
-              onBlur={() => localStorage.setItem(date, journalEntry)}
-              rows="10"
-              cols="30"
-            />
             <label className="heading">My Notes</label>
             <ul>
               {notes.map((note, index) => (
