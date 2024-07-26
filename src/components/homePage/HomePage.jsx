@@ -4,6 +4,7 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import Modal from "../newEntry/NewEntry";
+import ConfirmationModal from "../confirmationmodal/ConfirmationModal";
 import "./homepage.css";
 import Header from "../header/Header";
 
@@ -13,6 +14,7 @@ const HomePage = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteMode, setIsDeleteMode] = useState(false);
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
 
   useEffect(() => {
     const eventsFromLocalStorage = [];
@@ -34,7 +36,8 @@ const HomePage = () => {
   const handleEventClick = (info) => {
     const eventDate = info.event.startStr.split("T")[0];
     if (isDeleteMode) {
-      handleDeleteEntry(eventDate);
+      setSelectedDate(eventDate);
+      setIsConfirmModalOpen(true);
     } else {
       navigate(`/journal/${eventDate}`);
     }
@@ -65,7 +68,7 @@ const HomePage = () => {
           end: selectedDate,
         },
       ]);
-      setIsModalOpen(false); // Close the modal
+      setIsModalOpen(false);
       navigate(`/journal/${selectedDate}`);
     }
   };
@@ -78,22 +81,31 @@ const HomePage = () => {
     setIsDeleteMode(!isDeleteMode);
   };
 
-  const handleDeleteEntry = (date) => {
-    localStorage.removeItem(date);
-    localStorage.removeItem(`${date}_notes`);
-    localStorage.removeItem(`${date}_mood`);
-    localStorage.removeItem(`${date}_habits`);
+  const handleDeleteEntry = () => {
+    if (selectedDate) {
+      localStorage.removeItem(selectedDate);
+      localStorage.removeItem(`${selectedDate}_notes`);
+      localStorage.removeItem(`${selectedDate}_mood`);
+      localStorage.removeItem(`${selectedDate}_habits`);
 
-    setEvents((prevEvents) => prevEvents.filter((event) => event.id !== date));
-    setIsDeleteMode(false);
-    alert(`Journal entry for ${date} deleted.`);
+      setEvents((prevEvents) =>
+        prevEvents.filter((event) => event.id !== selectedDate)
+      );
+      setIsConfirmModalOpen(false);
+      setIsDeleteMode(false);
+      alert(`Journal entry for ${selectedDate} deleted.`);
+    }
+  };
+
+  const handleCloseConfirmModal = () => {
+    setIsConfirmModalOpen(false);
   };
 
   return (
     <div className="homepage">
       <Header />
       <div className="button-container">
-        <button onClick={toggleDeleteMode} className="delete-button ">
+        <button onClick={toggleDeleteMode} className="delete-button">
           {isDeleteMode ? "Cancel Delete" : "Delete Entry"}
         </button>
       </div>
@@ -108,6 +120,11 @@ const HomePage = () => {
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         onSave={handleSave}
+      />
+      <ConfirmationModal
+        isOpen={isConfirmModalOpen}
+        onClose={handleCloseConfirmModal}
+        onConfirm={handleDeleteEntry}
       />
     </div>
   );

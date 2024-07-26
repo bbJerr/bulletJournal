@@ -1,5 +1,6 @@
 .homepage {
   background-color: var(--primary) !important;
+  min-height: 100vh;
 }
 
 .button-container {
@@ -168,5 +169,9 @@
   .delete-button {
     margin: 0.5rem;
     font-size: 0.8rem;
+  }
+
+  .fc-media-screen {
+    min-height: 80vh;
   }
 }
