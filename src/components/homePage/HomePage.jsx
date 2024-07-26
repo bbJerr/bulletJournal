@@ -92,9 +92,11 @@ const HomePage = () => {
   return (
     <div className="homepage">
       <Header />
-      <button onClick={toggleDeleteMode} className="delete-button btn">
-        {isDeleteMode ? "Cancel Delete" : "Delete Entry"}
-      </button>
+      <div className="button-container">
+        <button onClick={toggleDeleteMode} className="delete-button ">
+          {isDeleteMode ? "Cancel Delete" : "Delete Entry"}
+        </button>
+      </div>
       <FullCalendar
         plugins={[dayGridPlugin, interactionPlugin]}
         initialView="dayGridMonth"
