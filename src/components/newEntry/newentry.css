@@ -13,11 +13,11 @@
 
 .modal-content {
   background: white;
-  padding: 1.5rem 2rem;
+  padding: 24px 2rem;
   border-radius: 5px;
   width: 80%;
   max-width: 500px;
-  height: 25%;
+  height: 12rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
