@@ -1,14 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import {
-  FaSmile,
-  FaMeh,
-  FaFrown,
-  FaGrin,
-  FaSadTear,
-  FaPlus,
-  FaTrash,
-} from "react-icons/fa";
+import { FaSmile, FaMeh, FaFrown, FaGrin, FaSadTear, FaPlus, FaTrash } from "react-icons/fa";
 import "./journalPage.css";
 import Header from "../header/Header";
 
@@ -162,6 +154,7 @@ const JournalPage = () => {
                     size={20}
                     style={{ marginLeft: "10px", cursor: "pointer" }}
                     onClick={() => handleRemoveNote(index)}
+                    className="trash-icon"
                   />
                 </li>
               ))}

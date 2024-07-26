@@ -1,139 +1,120 @@
 /* General styles */
 
 .whole-page {
-    min-height: 100vh;
+  min-height: 100vh;
 }
 
 .journal-page {
-    padding: 20px 50px;
-    font-family: Arial, sans-serif;   
+  padding: 20px 50px;
+  font-family: Arial, sans-serif;   
 }
 
 .journal-page h3 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
+  font-size: 2rem;
+  margin-bottom: 1rem;
 }
 
 .journal-content {
-    display: flex;
-    flex-direction: row;
-    gap: 80px;
+  display: flex;
+  flex-direction: row;
+  gap: 80px;
 }
 
 .heading {
-    font-size: 2rem;
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: 2rem;
+  font-size: 2rem;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 2rem;
 }
   
   /* Columns */
 .column {
-    flex: 1;
+  flex: 1;
 
 }
   
 .notes-section {
-    flex: 1;
+  flex: 1;
 }
   
 .mood-habits-section {
-    flex: 1;
+  flex: 1;
 }
   
   /* Notes Section */
 .notes-section {
-    background-color: var(--primary);
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    min-height: 70vh;  
+  background-color: var(--primary);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  min-height: 70vh;  
 }
   
 .notes-section textarea {
-    width: 100%;
-    padding: 10px;
-    border-radius: 10px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
 }
 
 .notes-section input {
-    width: 100%;
-    padding: 10px;
-    border-radius: 10px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-}
-  
-.notes-section button {
-    margin-top: 10px;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    background-color: #007bff;
-    color: #fff;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-  
-.notes-section button:hover {
-    background-color: #0056b3;
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
 }
   
 .notes-section ul {
-    list-style: none;
-    padding: 0;
+  list-style: none;
+  padding: 0;
 }
-  
+
 .notes-section li {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 10px;
-    margin-top: 5px;
-    position: relative;
+  padding: 0 10px 10px 10px;
+  display: flex; 
+  align-items: center;
+  color: var(--text-primary);
 }
-  
-.notes-section li button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    padding: 5px 10px;
-    background-color: #dc3545;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+
+.notes-section input.note-input {
+  flex: 1; 
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  font-size: 1rem;
 }
-  
-.notes-section li button:hover {
-    background-color: #c82333;
+
+.notes-section .trash-icon {
+  margin-left: 10px;
+  cursor: pointer;
 }
+
 
   /* Mood Tracker */
 .mood-tracker {
-    margin-bottom: 6rem;
+  margin-bottom: 6rem;
   }
   
 .mood-icons {
-    display: flex;
-    justify-content: space-around;
-    color: var(--primary);
+  display: flex;
+  justify-content: space-around;
+  color: var(--primary);
 }
   
 .mood-icon {
-    cursor: pointer;
+  cursor: pointer;
 }
   
 .mood-icon.selected {
-    color: var(--text-primary);
+  color: var(--text-primary);
 }
   
 .mood-tracker p {
-    font-size: 1.2rem;
-    margin: 0;
+  font-size: 1.2rem;
+  margin: 0;
 }
   
 /* Habit Tracker */
