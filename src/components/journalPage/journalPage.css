@@ -68,21 +68,24 @@
 
 .notes-section textarea {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
+  padding: 10px 30px 10px 10px;
   box-sizing: border-box;
   resize: none;
+  font-size: 1.2rem;
+  color: var(--text-primary);
+  overflow: hidden;
+  background-color: #e7e0d1;
+  border-radius: 10px;
+
 }
 
-.notes-section input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
+.notes-section textarea:hover {
+  background-color: #f0e9d9;
 }
 
-.notes-section input:focus {
+.notes-section textarea:focus {
   border: 1px solid #aa9b8f;
+  background-color: var(--background);
 }
 
 .notes-section ul {
@@ -101,11 +104,10 @@
   flex: 1;
   padding: 10px;
   box-sizing: border-box;
-  font-size: 1rem;
 }
+
 .note-item {
   position: relative;
-  margin-bottom: 10px;
 }
 
 /* Container for input and trash icon */
@@ -114,12 +116,6 @@
   display: flex;
   align-items: center;
   width: 100%;
-}
-
-.note-input {
-  padding-right: 30px;
-  width: 100%;
-  box-sizing: border-box;
 }
 
 .trash-icon {
@@ -182,7 +178,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  height: 8.5rem;
+  height: 8.4rem;
   font-size: 1.2rem;
   color: var(--text-primary);
   overflow: hidden;
@@ -221,6 +217,10 @@
   justify-content: center;
 }
 
+.add-habit-icon {
+  cursor: pointer;
+}
+
 /* Textarea in Habit Tracker */
 .habit-input,
 .habit-tracker textarea[type="text"] {
@@ -234,7 +234,6 @@
   padding: 10px;
 }
 
-/* Trash Icon */
 .habit-tracker li .trash-icon {
   position: absolute;
   top: 10px;

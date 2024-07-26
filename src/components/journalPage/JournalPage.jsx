@@ -25,6 +25,8 @@ const JournalPage = () => {
   const [showNewHabitInput, setShowNewHabitInput] = useState(false);
   const [editingHabitIndex, setEditingHabitIndex] = useState(null);
 
+  const MAX_CHARACTERS = 69; // Set your desired character limit here
+
   useEffect(() => {
     const savedEntry = localStorage.getItem(date);
     const savedNotes = JSON.parse(localStorage.getItem(`${date}_notes`)) || [];
@@ -41,6 +43,14 @@ const JournalPage = () => {
     }
     setHabits(savedHabits);
   }, [date]);
+
+  useEffect(() => {
+    // Auto-resize textarea
+    document.querySelectorAll('.note-input').forEach(textarea => {
+      textarea.style.height = 'auto'; // Reset height to auto to measure scrollHeight
+      textarea.style.height = `${textarea.scrollHeight}px`; // Set height to scrollHeight
+    });
+  }, [notes]);
 
   const handleSave = () => {
     localStorage.setItem(date, journalEntry);
@@ -87,15 +97,21 @@ const JournalPage = () => {
   };
 
   const handleAddHabit = () => {
-    if (newHabit.trim()) {
-      const updatedHabits = [
-        ...habits,
-        { text: newHabit.trim(), completed: false },
-      ];
-      setHabits(updatedHabits);
-      localStorage.setItem(`${date}_habits`, JSON.stringify(updatedHabits));
-      setNewHabit("");
-      setShowNewHabitInput(false);
+    if (newHabit.trim().length <= MAX_CHARACTERS && newHabit.trim()) {
+      if (habits.length < 9) { // Check if there are fewer than 9 habits
+        const updatedHabits = [
+          ...habits,
+          { text: newHabit.trim(), completed: false },
+        ];
+        setHabits(updatedHabits);
+        localStorage.setItem(`${date}_habits`, JSON.stringify(updatedHabits));
+        setNewHabit("");
+        setShowNewHabitInput(false);
+      } else {
+        alert("You can only create up to 9 habits.");
+      }
+    } else {
+      alert(`Habit text must be less than or equal to ${MAX_CHARACTERS} characters.`);
     }
   };
 
@@ -140,9 +156,13 @@ const JournalPage = () => {
   };
 
   const handleHabitChange = (index, value) => {
-    const updatedHabits = [...habits];
-    updatedHabits[index].text = value;
-    setHabits(updatedHabits);
+    if (value.length <= MAX_CHARACTERS) {
+      const updatedHabits = [...habits];
+      updatedHabits[index].text = value;
+      setHabits(updatedHabits);
+    } else {
+      alert(`Habit text must be less than or equal to ${MAX_CHARACTERS} characters.`);
+    }
   };
 
   const handleHabitBlur = () => {
@@ -273,29 +293,34 @@ const JournalPage = () => {
                     )}
                   </li>
                 ))}
-                {showNewHabitInput && (
+                {showNewHabitInput && habits.length < 9 && (
                   <li className="new-habit-input">
                     <textarea
                       type="text"
                       value={newHabit}
-                      onChange={(e) => setNewHabit(e.target.value)}
+                      onChange={(e) => {
+                        if (e.target.value.length <= MAX_CHARACTERS) {
+                          setNewHabit(e.target.value);
+                        }
+                      }}
                       placeholder="Add new habit"
                       onBlur={handleAddHabit}
                     />
                   </li>
                 )}
-                <li>
-                  <FaPlus
-                    size={24}
-                    className="add-habit-icon"
-                    onClick={() => setShowNewHabitInput(true)}
-                  />
-                </li>
+                {!showNewHabitInput && habits.length < 9 && (
+                  <li>
+                    <FaPlus
+                      size={24}
+                      className="add-habit-icon"
+                      onClick={() => setShowNewHabitInput(true)}
+                    />
+                  </li>
+                )}
               </ul>
             </div>
           </div>
         </div>
-
         <button onClick={() => navigate("/home")} className="btn-2">
           Back to Calendar
         </button>
