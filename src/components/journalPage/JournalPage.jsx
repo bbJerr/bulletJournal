@@ -52,14 +52,6 @@ const JournalPage = () => {
     });
   }, [notes]);
 
-  const handleSave = () => {
-    localStorage.setItem(date, journalEntry);
-    localStorage.setItem(`${date}_notes`, JSON.stringify(notes));
-    localStorage.setItem(`${date}_mood`, mood);
-    localStorage.setItem(`${date}_habits`, JSON.stringify(habits));
-    alert("Journal entry saved!");
-  };
-
   const handleAddNote = () => {
     if (newNote.trim()) {
       const updatedNotes = [...notes, newNote.trim()];
@@ -71,9 +63,13 @@ const JournalPage = () => {
   };
 
   const handleNoteChange = (index, value) => {
-    const updatedNotes = [...notes];
-    updatedNotes[index] = value;
-    setNotes(updatedNotes);
+    if (value.trim() === "") {
+      handleRemoveNote(index);
+    } else {
+      const updatedNotes = [...notes];
+      updatedNotes[index] = value;
+      setNotes(updatedNotes);
+    }
   };
 
   const handleNoteBlur = () => {
@@ -97,21 +93,26 @@ const JournalPage = () => {
   };
 
   const handleAddHabit = () => {
-    if (newHabit.trim().length <= MAX_CHARACTERS && newHabit.trim()) {
-      if (habits.length < 9) { // Check if there are fewer than 9 habits
-        const updatedHabits = [
-          ...habits,
-          { text: newHabit.trim(), completed: false },
-        ];
-        setHabits(updatedHabits);
-        localStorage.setItem(`${date}_habits`, JSON.stringify(updatedHabits));
-        setNewHabit("");
-        setShowNewHabitInput(false);
+    if (newHabit.trim()) {
+      if (newHabit.trim().length <= MAX_CHARACTERS) {
+        if (habits.length < 9) { // Check if there are fewer than 9 habits
+          const updatedHabits = [
+            ...habits,
+            { text: newHabit.trim(), completed: false },
+          ];
+          setHabits(updatedHabits);
+          localStorage.setItem(`${date}_habits`, JSON.stringify(updatedHabits));
+          setNewHabit("");
+          setShowNewHabitInput(false);
+        } else {
+          alert("You can only create up to 9 habits.");
+        }
       } else {
-        alert("You can only create up to 9 habits.");
+        alert(`Habit text must be less than or equal to ${MAX_CHARACTERS} characters.`);
       }
     } else {
-      alert(`Habit text must be less than or equal to ${MAX_CHARACTERS} characters.`);
+      setShowNewHabitInput(false);
+      setNewHabit("");
     }
   };
 
@@ -165,16 +166,36 @@ const JournalPage = () => {
     }
   };
 
-  const handleHabitBlur = () => {
+  const handleHabitBlur = (index) => {
     if (editingHabitIndex !== null) {
-      localStorage.setItem(`${date}_habits`, JSON.stringify(habits));
+      if (habits[index].text.trim() === "") {
+        handleRemoveHabit(index);
+      } else {
+        localStorage.setItem(`${date}_habits`, JSON.stringify(habits));
+      }
       setEditingHabitIndex(null);
     }
   };
 
   const handleHabitKeyPress = (event, index) => {
     if (event.key === "Enter") {
-      handleHabitBlur();
+      handleHabitBlur(index);
+    }
+  };
+
+  const handleJournalEntryChange = (value) => {
+    if (value.trim() !== "") {
+      setJournalEntry(value);
+    } else {
+      alert("Journal entry cannot be empty.");
+    }
+  };
+
+  const handleJournalEntryBlur = () => {
+    if (journalEntry.trim() === "") {
+      alert("Journal entry cannot be empty.");
+    } else {
+      localStorage.setItem(date, journalEntry);
     }
   };
 
@@ -185,13 +206,13 @@ const JournalPage = () => {
         <div className="journal-title">
           <input
             value={journalEntry}
-            onChange={(e) => setJournalEntry(e.target.value)}
-            onBlur={() => localStorage.setItem(date, journalEntry)}
+            onChange={(e) => handleJournalEntryChange(e.target.value)}
+            onBlur={handleJournalEntryBlur}
             rows="10"
             cols="30"
           />
           <h3>Journal Entry for {date}</h3>
-        </div>      
+        </div>
         <div className="journal-content">
           <div className="column notes-section">
             <label className="heading">My Notes</label>
@@ -259,15 +280,14 @@ const JournalPage = () => {
               <label className="heading">Habit Tracker</label>
               <ul>
                 {habits.map((habit, index) => (
-                  <li key={index}>
+                  <li key={index} className="habit-item">
                     {editingHabitIndex === index ? (
                       <textarea
-                        type="text"
-                        value={habits[index].text}
+                        value={habit.text}
                         onChange={(e) =>
                           handleHabitChange(index, e.target.value)
                         }
-                        onBlur={handleHabitBlur}
+                        onBlur={() => handleHabitBlur(index)}
                         onKeyPress={(e) => handleHabitKeyPress(e, index)}
                         className="habit-input"
                       />

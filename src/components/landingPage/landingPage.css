@@ -62,4 +62,9 @@
   .grid-background {
     background-size: cover;
   }
+
+  .btn {
+    font-size: 0.9rem;
+    padding: 0.8rem 1.4rem;
+  }
 }
