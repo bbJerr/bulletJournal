@@ -24,6 +24,7 @@ const JournalPage = () => {
   const [newHabit, setNewHabit] = useState("");
   const [showNewHabitInput, setShowNewHabitInput] = useState(false);
   const [editingHabitIndex, setEditingHabitIndex] = useState(null);
+  const [editingNoteIndex, setEditingNoteIndex] = useState(null);
 
   const MAX_CHARACTERS = 69; // Set your desired character limit here
 
@@ -63,26 +64,22 @@ const JournalPage = () => {
   };
 
   const handleNoteChange = (index, value) => {
-    if (value.trim() === "") {
+    const updatedNotes = [...notes];
+    updatedNotes[index] = value;
+    setNotes(updatedNotes);
+  };
+
+  const handleNoteBlur = (index) => {
+    if (notes[index].trim() === "") {
       handleRemoveNote(index);
     } else {
-      const updatedNotes = [...notes];
-      updatedNotes[index] = value;
-      setNotes(updatedNotes);
+      localStorage.setItem(`${date}_notes`, JSON.stringify(notes));
     }
   };
 
-  const handleNoteBlur = () => {
-    if (!newNote.trim()) {
-      setShowNewNoteInput(false);
-      return;
-    }
-    handleAddNote();
-  };
-
-  const handleNoteKeyPress = (event) => {
+  const handleNoteKeyPress = (event, index) => {
     if (event.key === "Enter") {
-      handleNoteBlur();
+      handleNoteBlur(index);
     }
   };
 
@@ -223,12 +220,7 @@ const JournalPage = () => {
                     <textarea
                       value={note}
                       onChange={(e) => handleNoteChange(index, e.target.value)}
-                      onBlur={() =>
-                        localStorage.setItem(
-                          `${date}_notes`,
-                          JSON.stringify(notes)
-                        )
-                      }
+                      onBlur={() => handleNoteBlur(index)}
                       onKeyPress={(e) => handleNoteKeyPress(e, index)}
                       className="note-input"
                     />
@@ -247,8 +239,22 @@ const JournalPage = () => {
                     value={newNote}
                     onChange={(e) => setNewNote(e.target.value)}
                     placeholder="Add a new note"
-                    onBlur={handleNoteBlur}
-                    onKeyPress={handleNoteKeyPress}
+                    onBlur={() => {
+                      if (!newNote.trim()) {
+                        setShowNewNoteInput(false);
+                        return;
+                      }
+                      handleAddNote();
+                    }}
+                    onKeyPress={(e) => {
+                      if (e.key === "Enter") {
+                        if (!newNote.trim()) {
+                          setShowNewNoteInput(false);
+                          return;
+                        }
+                        handleAddNote();
+                      }
+                    }}
                   />
                 </li>
               )}
